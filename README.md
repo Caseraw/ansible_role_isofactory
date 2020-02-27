@@ -2,8 +2,6 @@
 
 Making a custom ISO image for Enterprise Linux distributions.
 
-[<img src="https://img.shields.io/ansible/role/44669">](https://galaxy.ansible.com/caseraw/ansible_role_chrony) [<img src="https://img.shields.io/ansible/role/d/44669">](https://galaxy.ansible.com/caseraw/ansible_role_chrony) [<img src="https://img.shields.io/ansible/quality/44669">](https://galaxy.ansible.com/caseraw/ansible_role_chrony)
-
 - [Ansible ISO factory](#ansible-iso-factory)
   - [License](#license)
   - [Author Information](#author-information)
