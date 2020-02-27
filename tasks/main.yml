@@ -10,7 +10,7 @@
   when: (not role_isofactory_iso_file_input) or
         (not role_isofactory_iso_file_output) or
         (not role_isofactory_iso_file_output_checksum) or
-        (not role_isofactory_iso_volume_label) or 
+        (not role_isofactory_iso_volume_label) or
         (not role_isofactory_build_file_list)
   tags:
     - role_isofactory_tag_verify

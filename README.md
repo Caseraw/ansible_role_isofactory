@@ -2,6 +2,8 @@
 
 Making a custom ISO image for Enterprise Linux distributions.
 
+[<img src="https://img.shields.io/ansible/role/46878">](https://galaxy.ansible.com/caseraw/ansible_role_isofactory) [<img src="https://img.shields.io/ansible/role/d/46878">](https://galaxy.ansible.com/caseraw/ansible_role_isofactory) [<img src="https://img.shields.io/ansible/quality/46878">](https://galaxy.ansible.com/caseraw/ansible_role_isofactory)
+
 - [Ansible ISO factory](#ansible-iso-factory)
   - [License](#license)
   - [Author Information](#author-information)
@@ -15,6 +17,7 @@ Making a custom ISO image for Enterprise Linux distributions.
   - [Useful shell commands](#useful-shell-commands)
   - [Additional documentation resources](#additional-documentation-resources)
   - [Testing the role and the ISO](#testing-the-role-and-the-iso)
+    - [Linting](#linting)
   - [Useful links](#useful-links)
 
 ## License
@@ -165,7 +168,30 @@ Installing a new VM from scratch using the ISO file has been tested on:
 - Red Hat Virtualization
 - VMware
 
+### Linting
+
+This role is linted with:
+
+- `yamllint . -c yamllint.yml -f auto -s`
+- `ansible-lint`
+
+The following `ansible-lint` warnings are expected as there is no idempotency on these tasks:
+
+```shell
+[301] Commands should not change things if nothing needs doing
+tasks/build_iso.yml:2
+Task/Handler: Build ISO file
+
+[301] Commands should not change things if nothing needs doing
+tasks/build_iso.yml:22
+Task/Handler: Make ISO bootable
+
+[301] Commands should not change things if nothing needs doing
+tasks/build_iso.yml:29
+Task/Handler: Implant checksum
+```
+
 ## Useful links
 
-- GitHub repository: <https://github.com/Caseraw/ansible_role_chrony>
-- Ansible Galaxy role: <https://galaxy.ansible.com/caseraw/ansible_role_chrony>
+- GitHub repository: <https://github.com/Caseraw/ansible_role_isofactory>
+- Ansible Galaxy role: <https://galaxy.ansible.com/caseraw/ansible_role_isofactory>
