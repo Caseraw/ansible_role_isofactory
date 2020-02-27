@@ -3,12 +3,12 @@
   synchronize:
     src: '{{ role_isofactory_arena_iso_mount_directory_path }}/'
     dest: '{{ role_isofactory_arena_build_directory_path }}/'
-    recursive: true
-    archive: true
-    links: true
-    perms: true
-    group: true
-    dirs: false
-    compress: true
+    recursive: True
+    archive: True
+    links: True
+    perms: True
+    group: True
+    dirs: True
+    compress: True
 
 ...

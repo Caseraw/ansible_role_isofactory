@@ -3,14 +3,14 @@
   mount:
     path: '{{ role_isofactory_arena_iso_mount_directory_path }}'
     state: absent
-  when: role_isofactory_cleanup_unmount_iso == true
-  become: true
+  when: role_isofactory_cleanup_unmount_iso
+  become: True
 
 - name: Delete contents of {{ role_isofactory_arena_build_directory_path }}
   file:
     path: '{{ role_isofactory_arena_build_directory_path }}/'
     state: absent
-  when: role_isofactory_cleanup_arena_build_directory == true
-  become: true
+  when: role_isofactory_cleanup_arena_build_directory
+  become: True
 
 ...

@@ -4,7 +4,7 @@
     path: '{{ role_isofactory_arena_build_directory_path }}/{{ item.dest }}'
     state: '{{ item.state }}'
   loop: '{{ role_isofactory_build_file_list }}'
-  become: true
+  become: True
   when:
     - item.state == 'absent'
     - item.action == 'remove'
@@ -17,7 +17,7 @@
     group: '{{ item.group }}'
     mode: '0444'
   loop: '{{ role_isofactory_build_file_list }}'
-  become: true
+  become: True
   when:
     - item.state == 'present'
     - item.action == 'copy'
@@ -30,7 +30,7 @@
     group: '{{ item.group }}'
     mode: '0444'
   loop: '{{ role_isofactory_build_file_list }}'
-  become: true
+  become: True
   when:
     - item.state == 'present'
     - item.action == 'template'

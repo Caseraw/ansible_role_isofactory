@@ -11,6 +11,6 @@
     state: directory
   loop: '{{ role_isofactory_arena_directory_list_rc.results }}'
   when:
-    - item.stat.exists == false
+    - not item.stat.exists
 
 ...

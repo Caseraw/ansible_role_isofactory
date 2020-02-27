@@ -6,6 +6,6 @@
     fstype: iso9660
     opts: ro,noauto
     state: mounted
-  become: true
+  become: True
 
 ...
