@@ -1,0 +1,14 @@
+---
+- name: Copy files from {{ role_isofactory_arena_iso_mount_directory_path }} to {{ role_isofactory_arena_build_directory_path }}
+  synchronize:
+    src: '{{ role_isofactory_arena_iso_mount_directory_path }}/'
+    dest: '{{ role_isofactory_arena_build_directory_path }}/'
+    recursive: true
+    archive: true
+    links: true
+    perms: true
+    group: true
+    dirs: false
+    compress: true
+
+...

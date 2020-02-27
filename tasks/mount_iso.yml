@@ -1,0 +1,11 @@
+---
+- name: Mount ISO read-only to {{ role_isofactory_arena_iso_mount_directory_path }}
+  mount:
+    path: '{{ role_isofactory_arena_iso_mount_directory_path }}'
+    src: '{{ role_isofactory_arena_iso_files_directory_path }}/{{ role_isofactory_iso_file_input }}'
+    fstype: iso9660
+    opts: ro,noauto
+    state: mounted
+  become: true
+
+...

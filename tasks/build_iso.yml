@@ -1,0 +1,40 @@
+---
+- name: Build ISO file
+  command: |
+    mkisofs -r -T -J -joliet-long \
+    -V "{{ role_isofactory_iso_volume_label }}" \
+    -volset "{{ role_isofactory_iso_volume_label }}" \
+    -A "{{ role_isofactory_iso_volume_label }}" \
+    -b isolinux/isolinux.bin \
+    -c isolinux/isolinux.boot \
+    -no-emul-boot \
+    -boot-load-size 4 \
+    -boot-info-table \
+    -eltorito-alt-boot \
+    -e images/efiboot.img \
+    -no-emul-boot \
+    -o {{ role_isofactory_arena_iso_files_directory_path }}/{{ role_isofactory_iso_file_output }} .
+  args:
+    chdir: '{{ role_isofactory_arena_build_directory_path }}'
+  become: true
+
+- name: Make ISO bootable
+  command: isohybrid --uefi {{ role_isofactory_arena_iso_files_directory_path }}/{{ role_isofactory_iso_file_output }}
+  args:
+    chdir: '{{ role_isofactory_arena_build_directory_path }}'
+  become: true
+
+- name: Implant checksum
+  command: implantisomd5 {{ role_isofactory_arena_iso_files_directory_path }}/{{ role_isofactory_iso_file_output }}
+  args:
+    chdir: '{{ role_isofactory_arena_build_directory_path }}'
+  become: true
+  register: role_isofactory_implant_checksum_rc
+
+- name: Create embedded checksum file
+  copy:
+    dest: '{{ role_isofactory_arena_iso_files_directory_path }}/{{ role_isofactory_iso_file_output_checksum }}'
+    content: '{{ role_isofactory_implant_checksum_rc.stdout }}'
+  become: true
+
+...

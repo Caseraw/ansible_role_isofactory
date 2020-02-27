@@ -1,0 +1,19 @@
+---
+### Path to Ansible project directory
+role_isofactory_project_directory: '{{ inventory_dir | regex_replace("/inventory$","") }}'
+
+### Arena default paths
+role_isofactory_arena_root_directory: '{{ role_isofactory_project_directory + "/files/isofactory" }}'
+role_isofactory_arena_build_directory_path: '{{ role_isofactory_arena_persistent_build_directory | default(role_isofactory_arena_root_directory + "/build") }}'
+role_isofactory_arena_iso_files_directory_path: '{{ role_isofactory_arena_persistent_iso_files_directory | default(role_isofactory_arena_root_directory + "/isofiles") }}'
+role_isofactory_arena_iso_mount_directory_path: '{{ role_isofactory_arena_persistent_iso_mount_directory | default(role_isofactory_arena_root_directory + "/isomount") }}'
+role_isofactory_arena_build_files_directory_path: '{{ role_isofactory_arena_persistent_build_files_directory | default(role_isofactory_arena_root_directory + "/buildfiles") }}'
+
+### Arena directory list
+role_isofactory_arena_directory_list:
+  - '{{ role_isofactory_arena_build_directory_path }}'
+  - '{{ role_isofactory_arena_iso_files_directory_path }}'
+  - '{{ role_isofactory_arena_iso_mount_directory_path }}'
+  - '{{ role_isofactory_arena_build_files_directory_path }}'
+
+...

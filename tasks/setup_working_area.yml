@@ -1,0 +1,16 @@
+---
+- name: Check arena directory list
+  stat:
+    path: '{{ item }}'
+  loop: '{{ role_isofactory_arena_directory_list }}'
+  register: role_isofactory_arena_directory_list_rc
+
+- name: Create the arena directories when required
+  file:
+    path: '{{ item.item }}'
+    state: directory
+  loop: '{{ role_isofactory_arena_directory_list_rc.results }}'
+  when:
+    - item.stat.exists == false
+
+...

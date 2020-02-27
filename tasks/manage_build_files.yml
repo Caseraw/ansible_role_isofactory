@@ -1,0 +1,38 @@
+---
+- name: Delete existing build files (if required)
+  file:
+    path: '{{ role_isofactory_arena_build_directory_path }}/{{ item.dest }}'
+    state: '{{ item.state }}'
+  loop: '{{ role_isofactory_build_file_list }}'
+  become: true
+  when:
+    - item.state == 'absent'
+    - item.action == 'remove'
+
+- name: Copy static build files (if required)
+  copy:
+    src: '{{ role_isofactory_arena_build_files_directory_path }}/{{ item.src }}'
+    dest: '{{ role_isofactory_arena_build_directory_path }}/{{ item.dest }}'
+    owner: '{{ item.owner }}'
+    group: '{{ item.group }}'
+    mode: '0444'
+  loop: '{{ role_isofactory_build_file_list }}'
+  become: true
+  when:
+    - item.state == 'present'
+    - item.action == 'copy'
+
+- name: Deploy dynamic template files (if required)
+  template:
+    src: '{{ role_isofactory_arena_build_files_directory_path }}/{{ item.src }}'
+    dest: '{{ role_isofactory_arena_build_directory_path }}/{{ item.dest }}'
+    owner: '{{ item.owner }}'
+    group: '{{ item.group }}'
+    mode: '0444'
+  loop: '{{ role_isofactory_build_file_list }}'
+  become: true
+  when:
+    - item.state == 'present'
+    - item.action == 'template'
+
+...

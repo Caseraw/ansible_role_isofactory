@@ -1,0 +1,92 @@
+---
+### ISOfactory Arena directory tree
+## Use these variables to bind to an existing (path) "custom location" where
+## data is created, mounted and stored. Make sure to bind to an existing path
+## with read and write permissions including enough space to deal with large 
+## iso files. The default paths are set to create a staging area within the 
+## Ansible project directory as defined in `vars/main.yml` file. The current
+## default points to the path: /<project_dir>/files/iso_factory_arena
+##
+#role_isofactory_arena_persistent_build_directory: ''
+#role_isofactory_arena_persistent_iso_files_directory: ''
+#role_isofactory_arena_persistent_iso_mount_directory: ''
+#role_isofactory_arena_persistent_build_files_directory: ''
+
+### Files and names used for reading and creating the given iso files.
+## The following variables are important, make sure to set them correct.
+##
+## 'role_isofactory_iso_file_input' - Name of an existing/original ISO file.
+## 'role_isofactory_iso_file_output' - Name of the to be created new ISO file.
+## 'role_isofactory_iso_file_output_checksum' - Name of the file that will contain
+## the checksum of the to be created new ISO file.
+## 'role_isofactory_iso_volume_label', The label for the ISO. This should strictly
+## be the same as shown in the GRUB menu configuration file.
+
+role_isofactory_iso_file_input: ''
+role_isofactory_iso_file_output: ''
+role_isofactory_iso_file_output_checksum: ''
+role_isofactory_iso_volume_label: ''
+
+## RHEL 7 examples:
+#role_isofactory_iso_file_input: rhel-server-7.7-x86_64-dvd.iso
+#role_isofactory_iso_file_output: rhel-server-7.7-x86_64-dvd-custom_base01.iso
+#role_isofactory_iso_file_output_checksum: rhel-server-7.7-x86_64-dvd-custom_base01.txt
+#role_isofactory_iso_volume_label: RHEL-7.7 Server.x86_64
+##
+## RHEL 8 examples:
+#role_isofactory_iso_file_input: rhel-8.1-x86_64-dvd.iso
+#role_isofactory_iso_file_output: rhel-8.1-x86_64-dvd-custom_base01.iso
+#role_isofactory_iso_file_output_checksum: rhel-8.1-x86_64-dvd-custom_base01.txt
+#role_isofactory_iso_volume_label: RHEL-8-1-0-BaseOS-x86_64
+
+### Unmount and Cleanup the build arena
+## Cleaning up the build arena will remove the parent directory.
+##
+## Mount directory: '{{ role_isofactory_arena_iso_mount_directory_path }}'
+## Build directory: '{{ role_isofactory_arena_build_directory_path }}'
+##
+## Cleaning up the build directory will cause a longer wait time if a new build
+## using the previous contents is required.
+
+role_isofactory_cleanup_unmount_iso: True
+role_isofactory_cleanup_arena_build_directory: True
+
+### Manage files in the build directory
+## Copy existing static files with the action: 'copy'
+## Deploy dynamic templates with the action: 'template'
+## Remove files with the state: 'absent'
+
+role_isofactory_build_file_list: []
+
+## Example of creating a RHEL7 custom ISO with a build in kickstart.
+# role_isofactory_build_file_list:
+#   - src: RHEL/RHEL7x_ks_legacy_boot.cfg
+#     dest: isolinux/ks.cfg
+#     state: present
+#     action: copy
+#     owner: root
+#     group: root
+#     mode: 0444
+#   - src: RHEL/RHEL7x_ks_uefi_boot.cfg
+#     dest: EFI/BOOT/ks.cfg
+#     state: present
+#     action: copy
+#     owner: root
+#     group: root
+#     mode: 0444
+#   - src: RHEL/RHEL77_isolinux.cfg
+#     dest: isolinux/isolinux.cfg
+#     state: present
+#     action: copy
+#     owner: root
+#     group: root
+#     mode: 0444
+#   - src: RHEL/RHEL77_grub.cfg
+#     dest: EFI/BOOT/grub.cfg
+#     state: present
+#     action: copy
+#     owner: root
+#     group: root
+#     mode: 0444
+
+...

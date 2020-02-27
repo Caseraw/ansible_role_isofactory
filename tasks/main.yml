@@ -1,0 +1,48 @@
+---
+- name: Verify if the factory is capable to produce
+  fail:
+    msg: |
+        Unable to start the factory, please provide correct values for:
+        - role_isofactory_iso_file_input
+        - role_isofactory_iso_file_output
+        - role_isofactory_iso_file_output_checksum
+        - role_isofactory_iso_volume_label
+  when: (not role_isofactory_iso_file_input) or
+        (not role_isofactory_iso_file_output) or
+        (not role_isofactory_iso_file_output_checksum) or
+        (not role_isofactory_iso_volume_label) or 
+        (not role_isofactory_build_file_list)
+  tags:
+    - role_isofactory_tag_verify
+
+- name: Import tasks for setting up the working arena
+  import_tasks: setup_working_area.yml
+  tags:
+    - role_isofactory_tag_setup_working_dir
+
+- name: Import tasks to mount the ISO image
+  import_tasks: mount_iso.yml
+  tags:
+    - role_isofactory_tag_mount_iso
+
+- name: Import tasks to copy content from the ISO mount
+  import_tasks: copy_iso_contents.yml
+  tags:
+    - role_isofactory_tag_copy_iso_contents
+
+- name: Import tasks to manage build files on the ISO mount
+  import_tasks: manage_build_files.yml
+  tags:
+    - role_isofactory_tag_manage_build_files
+
+- name: Import tasks to manage build the customized ISO
+  import_tasks: build_iso.yml
+  tags:
+    - role_isofactory_tag_build_iso
+
+- name: Import tasks to cleanup
+  import_tasks: cleanup.yml
+  tags:
+    - role_isofactory_tag_cleanup
+
+...
